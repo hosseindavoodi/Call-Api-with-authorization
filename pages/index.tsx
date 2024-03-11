@@ -15,6 +15,8 @@ const ApiFetch: NextPage<Props> = ({ responseData }) => {
   return (
     <div>
       <h1>Server-Side Rendered Page with API Data</h1>
+      <p>API Response: {responseData.message}</p>
+      <p>Data: {responseData.data.example}</p>
     </div>
   );
 };
@@ -26,7 +28,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   };
 
   try {
-    const response = await fetch("apiAddress", { headers });
+    const apiUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`;
+
+    const response = await fetch(apiUrl, { headers });
 
     const responseData: ApiFetchProps = await response.json();
 
